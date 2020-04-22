@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Dropdown from 'react-dropdown';
 import parse from 'html-react-parser';
-import fetchShow from './api/fetchShow';
+import { fetchShow } from './api/fetchShow';
 
 import { formatSeasons } from './utils/formatSeasons';
 import Episodes from './components/Episodes';
@@ -26,7 +26,7 @@ export default function App() {
   };
 
   if (!show) {
-    return <h2>Fetching data...</h2>;
+    return <h2 data-testid='fetching'>Fetching data...</h2>;
   }
 
   return (

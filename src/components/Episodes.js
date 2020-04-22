@@ -2,6 +2,7 @@ import React from 'react';
 import parse from 'html-react-parser';
 
 export default function Episodes({ episodes }) {
+  console.log(episodes);
   return (
     <div className='episodes'>
       {episodes.map((e) => (
