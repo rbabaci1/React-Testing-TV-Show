@@ -13,7 +13,13 @@ it('renders Episodes with no content', () => {
 it('renders Episodes with valid episodes', () => {
   const mockData = [{ id: 2020, name: 'Chapter eleven', season: 11 }];
 
-  const { queryAllByTestId, rerender } = render(<Episodes episodes={[]} />);
+  const { queryAllByTestId, rerender, getByTestId } = render(
+    <Episodes episodes={[]} />
+  );
 
   expect(queryAllByTestId('episode')).toHaveLength(0);
+
+  rerender(<Episodes episodes={mockData} />);
+
+  expect(getByTestId('episode')).toHaveTextContent(/chapter eleven/i);
 });
