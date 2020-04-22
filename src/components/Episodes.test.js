@@ -9,3 +9,11 @@ it('renders Episodes with no content', () => {
 
   expect(queryAllByTestId('episode')).toHaveLength(0);
 });
+
+it('renders Episodes with valid episodes', () => {
+  const mockData = [{ id: 2020, name: 'Chapter eleven', season: 11 }];
+
+  const { queryAllByTestId, rerender } = render(<Episodes episodes={[]} />);
+
+  expect(queryAllByTestId('episode')).toHaveLength(0);
+});
