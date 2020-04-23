@@ -40,9 +40,6 @@ export default function App() {
         onChange={handleSelect}
         value={selectedSeason || 'Select a season'}
         placeholder='Select an option'
-        inputProps={{
-          'data-testid': 'foo-bar',
-        }}
       />
 
       <Episodes episodes={episodes} />
