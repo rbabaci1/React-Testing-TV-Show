@@ -6,13 +6,15 @@ import {
   waitForElementToBeRemoved,
   fireEvent,
 } from '@testing-library/react';
-import { fetchShow as mockFetchShow } from './api/fetchShow';
+
 import axiosMock from 'axios';
+import dropDownMock from 'react-dropdown';
+
 import App from './App';
 
 afterEach(cleanup);
 
-const mockShowData = {
+const mockData = {
   data: {
     name: 'rabah',
     image: { original: '/original' },
@@ -23,29 +25,22 @@ const mockShowData = {
           id: 101,
           name: 'chapter 11',
           runtime: 100,
-          season: 1,
+          season: 99,
           number: 11,
           image: { medium: '' },
-          summary: '<p>test</p>',
+          summary: '<p>just watch it</p>',
         },
       ],
     },
   },
 };
 
-// jest.mock('./api/fetchShow');
-
 it('fetches and renders data', async () => {
-  axiosMock.get.mockResolvedValueOnce(mockShowData);
+  axiosMock.get.mockResolvedValueOnce(mockData);
 
-  const { getByTestId, queryAllByTestId } = render(<App />);
+  const { getByTestId } = render(<App />);
 
   expect(getByTestId('fetching')).toBeInTheDocument();
 
   await waitForElementToBeRemoved(() => getByTestId('fetching'));
-  //   await waitFor(() => {
-  //     const episodes = queryAllByTestId('episode');
-
-  //     // expect(episodes).toHaveLength(0);
-  //   });
 });

@@ -13,11 +13,8 @@ export default function App() {
   const [selectedSeason, setSelectedSeason] = useState('');
   const episodes = seasons[selectedSeason] || [];
 
-  console.log(selectedSeason);
-
   useEffect(() => {
     fetchShow().then((res) => {
-      // console.log(res.data);
       setShow(res.data);
       setSeasons(formatSeasons(res.data._embedded.episodes));
     });
@@ -38,12 +35,15 @@ export default function App() {
 
       {parse(show.summary)}
 
-      {/* <Dropdown
+      <Dropdown
         options={Object.keys(seasons)}
         onChange={handleSelect}
         value={selectedSeason || 'Select a season'}
         placeholder='Select an option'
-      /> */}
+        inputProps={{
+          'data-testid': 'foo-bar',
+        }}
+      />
 
       <Episodes episodes={episodes} />
     </div>
