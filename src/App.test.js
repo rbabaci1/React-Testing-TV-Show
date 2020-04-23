@@ -2,22 +2,19 @@ import React from 'react';
 import {
   render,
   cleanup,
-  waitFor,
   waitForElementToBeRemoved,
   fireEvent,
 } from '@testing-library/react';
 
-import { fetchShow as mockFetchShow } from './api/fetchShow';
+import mockAxios from 'axios';
 import mockDropdown from 'react-dropdown';
 import App from './App';
 import { mockData } from './mockData.js';
 
 afterEach(cleanup);
 
-jest.mock('./api/fetchShow');
-
 it('fetches and renders the data', async () => {
-  mockFetchShow.mockResolvedValueOnce(mockData);
+  mockAxios.get.mockResolvedValueOnce(mockData);
 
   const { getByTestId, getAllByTestId } = render(<App />);
 
