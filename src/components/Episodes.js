@@ -2,8 +2,9 @@ import React from 'react';
 import parse from 'html-react-parser';
 
 export default function Episodes({ episodes }) {
+  // console.log('\x1b[40m\x1b[33m%s\x1b[0m', `episodes: ${episodes}`);
   return (
-    <div className='episodes'>
+    <div className='episodes' data-testid='episodes'>
       {episodes.map((e) => (
         <div className='episode' key={e.id} data-testid='episode'>
           {e.image && (
