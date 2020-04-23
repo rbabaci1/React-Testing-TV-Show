@@ -19,10 +19,13 @@ const mockData = [
     summary: '<h1>rabah babaci</h1>',
   },
 ];
+const expectedData = {
+  'Season 99': [mockData[0]],
+  'Season 100': [mockData[1]],
+};
 
 it('formats the seasons correctly', () => {
   const formattedSeasons = formatSeasons(mockData);
 
-  expect(formattedSeasons).toHaveProperty('Season 99', [mockData[0]]);
-  expect(formattedSeasons).toHaveProperty('Season 100', [mockData[1]]);
+  expect(formattedSeasons).toEqual(expectedData);
 });
