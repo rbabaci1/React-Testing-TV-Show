@@ -1,3 +1,4 @@
+import { formatSeasons } from './formatSeasons';
 const mockData = [
   {
     id: 1,
@@ -19,4 +20,9 @@ const mockData = [
   },
 ];
 
-it('formats the seasons correctly', () => {});
+it('formats the seasons correctly', () => {
+  const formattedSeasons = formatSeasons(mockData);
+
+  expect(formattedSeasons).toHaveProperty('Season 99', [mockData[0]]);
+  expect(formattedSeasons).toHaveProperty('Season 100', [mockData[1]]);
+});
