@@ -8,46 +8,51 @@ import {
 } from '@testing-library/react';
 
 import { fetchShow as mockFetchShow } from './api/fetchShow';
-import dropDownMock from 'react-dropdown';
-
 import App from './App';
-import Episodes from './components/Episodes';
 
-afterEach(cleanup);
+const mockEpisodesData = [
+  {
+    id: 101,
+    name: 'chapter 11',
+    runtime: 90,
+    season: 99,
+    number: 11,
+    image: { medium: '/first' },
+    summary: '<p>just watch it</p>',
+  },
+  {
+    id: 102,
+    name: 'chapter 12',
+    runtime: 100,
+    season: 99,
+    number: 12,
+    image: { medium: '/second' },
+    summary: '<p>do not watch it</p>',
+  },
+];
 
-const mockData = {
+const mockShowData = {
   data: {
     name: 'rabah',
     image: { original: '/original' },
     summary: '<p>A love letter<p>',
     _embedded: {
-      episodes: [
-        {
-          id: 101,
-          name: 'chapter 11',
-          runtime: 100,
-          season: 100,
-          number: 11,
-          image: { medium: '' },
-          summary: '<p>just watch it</p>',
-        },
-      ],
+      episodes: mockEpisodesData,
     },
   },
 };
 
+afterEach(cleanup);
+
 jest.mock('react-dropdown', () => ({ options, value, onChange }) => {
   return (
     <select
-      data-testid='select'
       value={value}
-      onChange={(e) => {
-        console.log('changed: ');
-        onChange(e);
-      }}
+      onChange={(e) => onChange(e.target)}
+      data-testid='select'
     >
-      {options.map((option) => (
-        <option key={Date.now()} value={option}>
+      {options.map((option, i) => (
+        <option key={i} value={option}>
           {option}
         </option>
       ))}
@@ -58,16 +63,17 @@ jest.mock('react-dropdown', () => ({ options, value, onChange }) => {
 jest.mock('./api/fetchShow');
 
 it('fetches and renders the data', async () => {
-  mockFetchShow.mockResolvedValueOnce(mockData);
+  mockFetchShow.mockResolvedValueOnce(mockShowData);
 
-  const { getByTestId } = render(<App />);
+  const { getByTestId, getAllByTestId } = render(<App />);
 
   expect(getByTestId('fetching')).toBeInTheDocument();
 
   await waitForElementToBeRemoved(() => getByTestId('fetching'));
 
-  //   await waitFor(() => {
-  //     const a = queryByTestId('episode');
-  //     console.log(a);
-  //   });
+  const selectInput = getByTestId('select');
+  fireEvent.change(selectInput, { target: { value: 'Season 99' } });
+
+  expect(selectInput).toHaveTextContent('Season 99');
+  expect(getAllByTestId('episode')).toHaveLength(2);
 });

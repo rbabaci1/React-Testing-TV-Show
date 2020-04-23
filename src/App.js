@@ -21,7 +21,6 @@ export default function App() {
   }, []);
 
   const handleSelect = (e) => {
-    console.log('change fired');
     setSelectedSeason(e.value);
   };
 
