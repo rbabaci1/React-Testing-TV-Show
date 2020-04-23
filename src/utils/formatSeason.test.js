@@ -1,31 +1,10 @@
 import { formatSeasons } from './formatSeasons';
-const mockData = [
-  {
-    id: 1,
-    season: 99,
-    runtime: 60,
-    number: 2,
-    image: { medium: '/test1' },
-    name: 'hello',
-    summary: '<h1>rabah</h1>',
-  },
-  {
-    id: 2,
-    season: 100,
-    runtime: 30,
-    number: 10,
-    image: { medium: '/test2' },
-    name: 'hello there',
-    summary: '<h1>rabah babaci</h1>',
-  },
-];
-const expectedData = {
-  'Season 99': [mockData[0]],
-  'Season 100': [mockData[1]],
-};
+import { episodes as mockEpisodes, season } from '../mockData';
 
 it('formats the seasons correctly', () => {
-  const formattedSeasons = formatSeasons(mockData);
+  const expectedData = { [season]: mockEpisodes };
+  const formattedSeasons = formatSeasons(mockEpisodes);
 
+  expect(formattedSeasons[season]).toHaveLength(2);
   expect(formattedSeasons).toEqual(expectedData);
 });
