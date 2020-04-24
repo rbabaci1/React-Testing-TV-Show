@@ -9,7 +9,7 @@ import {
 import mockAxios from 'axios';
 import mockDropdown from 'react-dropdown';
 import App from './App';
-import { mockData } from './mockData.js';
+import { mockData } from './mockData';
 
 afterEach(cleanup);
 
